@@ -1,0 +1,53 @@
+{% extends 'GameaffinityBundle:Back:BackBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Gameaffinity Editar {{ editando }}{% endblock %}
+{% block body %}
+    {{ parent() }}
+
+    {% if editando == 'Plataforma' %}
+        {% set action = 'back_plataformas_edit' %}
+    {% elseif editando == 'Genero' %}
+        {% set action = 'back_generos_edit' %}
+    {% endif %}
+
+
+    <div class="container">
+        <div class="page-header">
+            <h3>GameAffinity editar {{ editando }}</h3>
+        </div>    
+        <form role="form" action="{{ path(action, {id: entity.id}) }}" name="submit-form" method="POST">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" value="{{ entity.nombre }}">
+            </div>
+
+            {# Si estamos editando plataforma, debemos mostrar tambien input para la fecha de lanzamiento #}
+            {% if editando == 'Plataforma' %}
+                <div class="form-group">
+                    <label for="release_date">Fecha lanzamiento:</label>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="dia_lanzamiento">Dia:</label>
+                            <input type="number" class="form-control smallest-input" name="dia" placeholder="dd" min="1" max="31" value="{{ entity.fechaLanzamiento|date('d') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mes_lanzamiento">Mes:</label>
+                            <input type="number" class="form-control smallest-input" name="mes" placeholder="mm" min="1" max="12" value="{{ entity.fechaLanzamiento|date('m') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="anyo_lanzamiento">Año:</label>
+                            <input type="number" class="form-control small-input" name="anyo" placeholder="yyyy" min="1850" value="{{ entity.fechaLanzamiento|date('Y') }}" required>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+{% endblock %}

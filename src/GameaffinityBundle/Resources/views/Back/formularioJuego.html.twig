@@ -1,0 +1,45 @@
+{% extends 'GameaffinityBundle:Back:BackBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block title %}
+    {% if edit is not defined %}
+        Insertar Juego
+    {% else %}
+        Editar Juego
+    {% endif %}   
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container-fluid">
+        <div style="text-align: center;">           
+            <h1 class="title">
+                {% if edit is not defined %}
+                    Insertar Juego
+                {% else %}
+                    Editar Juego
+                {% endif %}
+            </h1>
+        </div>
+        {{ form_start(formulario) }}
+        {{ form_widget(formulario) }}
+        {{ form_end(formulario) }}
+
+        {# Si tenemos edit defined significa que estamos editando, así que mostraremos
+            la ruta de la imagen actual para que el usuario no crea que no la tiene (ya que
+            el file input aparece vacío #}
+        {% if edit is defined %}
+            <div class="container">
+                <div class="alert alert-warning" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Warning:</span>
+                    NOTA: El fichero de imagen de la portada del juego se conserva en el servidor. Selecciona un fichero de imagen
+                    solo si quieres sobreescribir la anterior.
+                </div>
+                <h5><b>Imagen actual</b></h5>
+                <img src="{{ asset("#{juegos_asset_src}" ~ "#{ formulario.vars.data.portada }") }}" class="img-thumbnail" alt="Noticia img thumbnail" width="120" height="120"/>
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

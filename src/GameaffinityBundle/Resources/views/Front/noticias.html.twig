@@ -1,0 +1,33 @@
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Noticias publicadas:{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="page-header centered">
+            <h3>{{'Noticias publicadas en la web'|trans}}</h3>
+        </div>
+
+        {% for noticia in noticias %}
+            {# Juntamos la ruta de los uploads de noticia con el nombre de la imagen #}                      
+            {% set imagen = "#{noticias_asset_src}" ~ "#{ noticia.imagen }" %} 
+
+            <div class="noticia-container">
+                <img src="{{ asset("#{ imagen }")}}" class="noticias-img" alt="noticia img"/>
+                <p class="inline left-margined-2">
+                    Título: {{ noticia.titulo }}<br>
+                    Publicada el {{ noticia.fechaPublicacion|date('d/m/Y') }}<br>
+                    por {{ noticia.autor.nombre }}<br>
+                    --------------<br>{{ noticia.texto }}
+            </div>
+        {% endfor %}
+
+    </div>   
+
+{% endblock %}

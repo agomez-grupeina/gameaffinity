@@ -1,0 +1,71 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span><img class="navbar-img" src="{{ asset('assets/img/game-controller-icon.png') }}"</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('index') }}">Inicio <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ path('noticias') }}">Noticias</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Por plataforma <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for plataforma in plataformas %}
+                            <li><a href="{{ path('plataforma', {'slug': plataforma.slug}) }}">{{ plataforma.nombre }}</a></li>
+                            {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Por genero <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for genero in generos %}
+                            <li><a href="{{ path('genero', {'slug': genero.slug}) }}">{{ genero.nombre }}</a></li>
+                            {% endfor %}
+                    </ul>
+                </li>               
+            </ul>             
+
+
+            <ul class="nav navbar-nav navbar-right">
+                
+                {# Language flags #} 
+                <li><span class="language-icon-container"><a href="{{ path('index', {_locale: 'es'}) }}"><img class="icon" src="{{ asset('assets/img/spain-icon.png') }}" alt="spanish"/></a></span><span class="language-icon-container"><a href="{{ path('index', {_locale: 'en'}) }}"><img class="icon" src="{{ asset('assets/img/uk-icon.png') }}" alt="english"/></a></span></li>
+{#                <li class="icon-container"><a href=""><img class="icon" src="{{ asset('assets/img/uk-icon.png') }}" alt="english"/></a></li>#}
+                
+                {# Si existe usuario autenticado,mostramos opciones relativas a usuario autenticado #}
+                {% if app.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.nombre }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('user_profile') }}">Mi perfil</a></li>
+                                {% if is_granted('ROLE_MANAGER') %}
+                                <li><a href="{{ path('back_index') }}">Administrar sitio</a></li>
+                                {% endif %}
+                            <li><a href="{{ path('logout') }}">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                    {# Si no esta autenticado, mostramos link para login #}
+                {% else %}
+                    <li><a href={{ path("login") }}>Iniciar sesión</a></li>
+                    {% endif %}
+                                   
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

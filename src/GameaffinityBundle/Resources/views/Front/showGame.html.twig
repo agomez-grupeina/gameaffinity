@@ -1,0 +1,86 @@
+{# Template para mostrar info de un solo juego #}
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Detalles {{ juego.nombre }}{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="page-header">
+            <h2>{{ juego.nombre }}</h2>
+        </div>   
+
+        {# Espacio para mostrar resultado tras añadir/eliminar favorito, puntuar un juego, etc.       #}
+        {% if result is defined and result is not null%}
+            {% if result == 'added-favorite' %}
+                {% set message = 'Juego agregado a favoritos correctamente.' %}
+            {% elseif result == 'removed-favorite' %}
+                {% set message = 'Juego eliminado de favoritos correctamente.' %}
+            {% elseif result == 'rated-ok' %}
+                {% set message = 'Voto recibido correctamente.' %}
+            {% endif %}       
+
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {# Juntamos la ruta de los uploads de juego con el nombre de la imagen #}                      
+        {% set portada = "#{juegos_asset_src}" ~ "#{ juego.portada }" %} 
+
+        <div class="juego-portada-wrapper">
+            <a href="{{ asset("#{ portada }")}}"><img src="{{ asset("#{ portada }")}}" class="img-thumbnail" alt="portada img"/></a>            
+            <div class="cover-bottom-wrapper">
+                {% if is_granted('ROLE_USER') %}
+                    {% if juego not in app.user.juegosFavoritos %}
+                        <a href="{{ path('game_favorite', {id: juego.id, action: 'add'}) }}"><button type="button" class="btn btn-default btn-add-favourite">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorito
+                            </button>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('game_favorite', {id: juego.id, action: 'remove'}) }}"><button type="button" class="btn btn-danger btn-remove-favourite">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Quitar Favorito
+                            </button>
+                        </a>
+                    {% endif %}
+
+                {% endif %}
+                Puntuacion: <b>{{ juego.puntuacion|number_format(2) }}</b>
+                {% if is_granted('ROLE_USER') and not puntuado %}
+                    <br>
+                    <p class="top-margined-15">Puntuar:</p>
+                    <form role="form" action="{{ path('game_rating', {id: juego.id}) }}" method="post" class="select-valoracion-juego">
+                        <select name="puntuacion">
+                            <option>Escoge una opción:</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                        <button type="submit" id="btn-puntuar" class="btn btn-primary">Puntuar</button>
+                    </form>
+                {% else %}
+                    <p class="ya-puntuado-texto">¡Ya puntuado!</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <p>Publicado el: {{ juego.fechaLanzamiento|date('d/m/Y') }}</p>
+        {#<br>Permitir añadir a favoritos<br>Permitir puntuar juego<br>#}
+    </div>   
+
+{% endblock %}
+

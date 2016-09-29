@@ -1,0 +1,36 @@
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Juegos por género{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="page-header">
+            <h3>Juegos de {{ genero.nombre }}</h3>
+        </div>
+
+        {% for juego in genero.juegos %}
+            {# Juntamos la ruta de los uploads de juego con el nombre de la imagen #}                      
+            {% set portada = "#{juegos_asset_src}" ~ "#{ juego.portada }" %} 
+
+
+            <div class="por-plataforma-genero-wrapper">
+                <p><b>{{ juego.nombre }}</b></p>
+                <a href="{{ path('game_info', {id: juego.id}) }}"><img src="{{ asset("#{ portada }")}}" class="inline img-thumbnail" alt="portada img"/></a>            
+                <div id="cover-bottom-wrapper">     
+                    {% if is_granted('ROLE_USER') %}
+                        <a href=""><button type="button" class="btn btn-default btn-add-favourite"></a>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favoritos
+                        </button>
+                    {% endif %}
+                    Puntuacion: <b>{{ juego.puntuacion }}</b>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

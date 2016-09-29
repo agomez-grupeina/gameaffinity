@@ -1,0 +1,48 @@
+{#NOTA: La variable edit la paso al render del editarNoticiaAction para distinguir cuando
+accedo al formulario para editar y cuando accedo para registrar una nueva noticia#}
+
+{% extends 'GameaffinityBundle:Back:BackBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block title %}
+    {% if edit is not defined %}
+        Nueva Noticia
+    {% else %}
+        Editar Noticia
+    {% endif %}   
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container-fluid">
+        <div style="text-align: center;">           
+            <h1 class="title">
+                {% if edit is not defined %}
+                    Registro de Noticias
+                {% else %}
+                    Editar Noticia
+                {% endif %}
+            </h1>
+        </div>
+        {{ form_start(formulario) }}
+        {{ form_widget(formulario) }}
+        {{ form_end(formulario) }}
+
+        {# Si tenemos edit defined significa que estamos editando, así que mostraremos
+        la ruta de la imagen actual para que el usuario no crea que no la tiene (ya que
+        el file input aparece vacío #}
+        {% if edit is defined %}
+            <div class="container">
+                <div class="alert alert-warning" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Warning:</span>
+                    NOTA: El fichero de imagen de la noticia se conserva en el servidor. Selecciona un fichero de imagen
+                    solo si quieres sobreescribir la anterior.
+                </div>
+                <h5><b>Imagen actual</b></h5>
+                <img src="{{ asset("#{noticias_asset_src}" ~ "#{ formulario.vars.data.imagen }") }}" class="img-thumbnail" alt="Noticia img thumbnail" width="120" height="120"/>
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

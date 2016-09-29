@@ -1,0 +1,24 @@
+{# Plantilla de la que heredan todas las templates del frontend (nivel 2) #}
+
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    {{ parent() }}     
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/frontend-custom.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+
+{% block body %}
+    {#    {% include 'GameaffinityBundle:Front:frontNavbar.html.twig' %}#}
+    <div id="navbar">
+{#        {% render url('navbar_fill') %}#}
+        {{ render(controller('GameaffinityBundle:Front:navbarFill')) }}
+    </div>
+{% endblock %}
+{% block title %}{% endblock %}

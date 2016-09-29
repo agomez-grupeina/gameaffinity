@@ -1,0 +1,34 @@
+.btn-title{
+    float: right;
+
+}
+
+h3{
+    display: inline-block;
+}
+
+#back-to-front-link{
+    
+}
+
+hr{
+    border-color: gray;
+}
+
+.plataforma-genero-divisor{
+    width: 47%;
+    display: inline-block;
+    margin-left: 2%;
+}
+
+.small-input{
+    width: 100px !important;
+}
+
+.smallest-input{
+    width: 65px !important;
+}
+
+.custom-date-form-group{
+    display: inline-block;
+}

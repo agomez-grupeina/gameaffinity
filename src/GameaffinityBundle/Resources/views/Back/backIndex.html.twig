@@ -1,0 +1,21 @@
+{% extends 'GameaffinityBundle:Back:BackBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Gameaffinity Admin Page{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container-fluid">
+        <div class="page-header">
+            <h3>GameAffinity admin</h3>           
+        </div> 
+        <p>Utiliza el menú de la izquierda para desplazarte por los distintos 
+        elementos que puedes administrar.</p>
+    </div>                
+</div>
+
+{% endblock %}

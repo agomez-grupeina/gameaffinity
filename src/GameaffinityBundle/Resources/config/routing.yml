@@ -1,0 +1,124 @@
+#-----------------------------Rutas FRONT-------------------
+
+index:
+    path: /{_locale}
+    defaults: { _controller: GameaffinityBundle:Front:index, _locale: %locale% }
+    
+login:
+    path: /{_locale}/login/
+    defaults: { _controller: GameaffinityBundle:Front:login }
+    
+register:
+    path: /{_locale}/register/
+    defaults: { _controller: GameaffinityBundle:Front:register }
+    
+logout:
+    path: /logout/
+   
+    
+user_profile:
+    path: /{_locale}/profile/
+    defaults: { _controller: GameaffinityBundle:Front:profile }
+    
+game_info:    
+    path: /{_locale}/games/{id}/{result}
+    defaults: { _controller: GameaffinityBundle:Front:showGame, result: null }
+    
+noticias:
+    path: /{_locale}/noticias/
+    defaults: { _controller: GameaffinityBundle:Front:noticias }
+    
+plataforma:
+    path: /{_locale}/plataforma/{slug}
+    defaults: { _controller: GameaffinityBundle:Front:showPlataforma }
+    
+# NOTA: Routes with optional parameters at the end will not match on requests with a trailing slash /  
+genero:
+    path: /{_locale}/genero/{slug}
+    defaults: { _controller: GameaffinityBundle:Front:showGenero }
+    
+game_favorite:
+    path: /{_locale}/favorite/{action}/{id}
+    defaults: { _controller: GameaffinityBundle:Front:favorite, id: -1 }
+    requirements:
+        action: add|remove
+        
+game_rating:
+    path: /{_locale}/rate/{id}
+    defaults: { _controller: GameaffinityBundle:Front:rateGame }
+    
+# Entrada de routing que se crea para que symfony la utilice internamente
+# cuando se llama a {% render %} desde la template (se utiliza para 
+# cargar datos de la base de datos en el navbar, como las categorias, plataformas, etc)
+navbar_fill:
+    path: /{_locale}/navbar/
+    defaults: { _controller: GameaffinityBundle:Front:navbarFill }
+
+    # Entrada creada para probar el funcionamiento de los logins    
+privado:
+    path: /{_locale}/privado/
+    defaults: { _controller: GameaffinityBundle:Front:privado }
+    
+
+
+#-----------------------------Rutas BACK--------------------
+
+back_index:
+    path: /admin/
+    defaults: { _controller: GameaffinityBundle:Back:adminIndex }
+    
+back_noticias:
+    path: /admin/noticias/
+    defaults: { _controller: GameaffinityBundle:Back:noticias }
+    
+form_noticias:
+    path: /admin/noticias/new/
+    defaults: { _controller: GameaffinityBundle:Back:introducirNoticia }
+    
+edit_noticias:
+    path: /admin/noticias/edit/{id}
+    defaults: { _controller: GameaffinityBundle:Back:editarNoticia }
+    
+back_usuarios:
+    path: /admin/usuarios/
+    defaults: { _controller: GameaffinityBundle:Back:usuarios }
+    
+form_usuarios:
+    path: /admin/usuarios/new/
+    defaults: { _controller: GameaffinityBundle:Back:introducirUsuario }  
+    
+edit_usuarios:
+    path: /admin/usuarios/edit/{id}
+    defaults: { _controller: GameaffinityBundle:Back:editarUsuario }
+
+back_genero_plataformas:
+    path: /admin/gen-plat/
+    defaults: { _controller: GameaffinityBundle:Back:generoPlataforma }
+    
+back_plataformas_insert:
+    path: /admin/plataformas/insert
+    defaults: { _controller: GameaffinityBundle:Back:insertarPlataforma }
+    
+back_plataformas_edit:
+    path: /admin/plataformas/edit/{id}
+    defaults: { _controller: GameaffinityBundle:Back:editarPlataforma }
+    
+back_generos_insert:
+    path: /admin/generos/insert
+    defaults: { _controller: GameaffinityBundle:Back:insertarGenero }
+    
+back_generos_edit:
+    path: /admin/generos/edit/{id}
+    defaults: { _controller: GameaffinityBundle:Back:editarGenero }  
+    
+back_juegos:
+    path: /admin/juegos
+    defaults: { _controller: GameaffinityBundle:Back:juegos }
+    
+back_juegos_insert:
+    path: /admin/juegos/insert
+    defaults: { _controller: GameaffinityBundle:Back:insertarJuego }
+    
+back_juegos_edit:
+    path: /admin/juegos/edit/{id}
+    defaults: { _controller: GameaffinityBundle:Back:editarJuego }  

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="es" datatype="plaintext" original="file.ext">
+        <body>
+            <!--frontpage-->
+            <trans-unit id="frontpage-title">
+                <source>GameAffinity, tu web gaming</source>
+                <target>GameAffinity, your gaming web ENGLISH</target>
+            </trans-unit>
+            <!--END frontpage-->
+            <!--noticias-->
+            <trans-unit id="noticias-title">
+                <source>Noticias publicadas en la web</source>
+                <target>All published news ENGLISH</target>
+            </trans-unit>
+            <!--END noticias-->
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,49 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        usuario:
+            entity: { class: GameaffinityBundle\Entity\Usuario, property: email }
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            provider: usuario
+            
+            form_login:
+                login_path: login
+                check_path: login
+            
+            logout:
+                path: /logout/
+                target: /    
+
+    encoders:
+        GameaffinityBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
+        
+    access_control:
+        # Elementos que solo puede modificar el admin
+        - { path: ^/admin/usuarios, roles: ROLE_ADMIN }
+        # Otros
+        - { path: ^/privado, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_MANAGER }
+        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/favorite, roles: ROLE_USER }              
+        
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_MANAGER, ROLE_USER]
+        ROLE_MANAGER: ROLE_USER

@@ -1,0 +1,153 @@
+/* Necesario para que se vea la letra de los inputs */
+.dark-theme-input{
+    background-color: gray;
+}
+
+#frontpage-noticias-container{
+    border: 1px solid gray;
+}
+
+.cover-bottom-wrapper{
+    margin-top: 10px;
+}
+
+#frontpage-lanzamientos-container{
+    border: 1px solid purple;
+    margin-top: 2%;    
+}
+
+.ultima-noticia-container{
+    border: 1px solid blue;
+    padding: 1%;
+    display: inline-block;
+    min-height: 100px;
+    width: 49.75%;
+}
+
+.inline{
+    display: inline-block;
+}
+
+.ultimo-lanzamiento-container{
+    border: 1px solid black;
+    width: 33%;
+    /*min-height: 270px;*/
+    height: 500px;
+    /*Overflow auto: scroll si no cabe, nada si se ve correctamente de buen principio*/
+    overflow: auto;
+}
+
+body{
+    /*Para el fixed navbar superior*/
+    padding-top: 50px;
+    background-color: black;
+    color: white;
+}
+
+.juego-portada-wrapper{
+    border: 1px solid red;
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Le quito al thumbnail de bootstrap el display inline-block */
+.img-thumbnail{
+    display: block;
+    width: 225px;
+    height: 225px;
+    padding: 0px;
+    border: none;
+    /*margin-bottom: 3%;*/
+}
+
+.centered{
+    text-align: center;
+}
+
+.btn-add-favourite{
+    background-color:#ffff99;
+    color: black;
+}
+.btn-remove-favourite{
+    background-color:#ff0000;
+    color: black;
+    font-size: 85%;
+}
+
+.select-valoracion-juego{
+    color: black;
+    /*background-color: #cccccc;*/
+    /*width: 80px;*/
+}
+
+.navbar-img{
+    width: 60%;
+    margin-top: -35px;
+    margin-left: 2%;
+}
+
+.noticia-container{
+    border: 1px solid yellow;
+    margin-bottom: 15px;
+    min-height: 112px;
+    /*clear: both;*/
+}
+
+.noticias-img{
+    height: auto;
+    width: 190px;
+    /*display: inline-block;*/
+    min-width: 110px;
+}
+
+.inline{
+    /*clear: both;*/
+    display: inline-block;
+}
+
+.left-margined-2{
+    margin-left: 2%;
+}
+
+.top-margined-2{
+    margin-top: 2%;
+}
+
+.top-margined-15{
+    margin-top: 15%;
+}
+
+/* plataforma */
+.por-plataforma-genero-wrapper{
+    border: 1px solid green;
+    width: 24.5%;
+    display: inline-block;
+    text-align: center;
+}
+
+/*END plataforma*/
+
+#btn-puntuar{
+    height: 24px;
+    vertical-align: middle;
+    line-height: 12px;
+}
+
+.icon{
+    width: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    /*display: inline-block;*/
+}
+
+.language-icon-container{
+    position: relative;
+    top: 13px;
+}
+
+.ya-puntuado-texto{
+    margin-top: 15px;
+    color: green;
+}

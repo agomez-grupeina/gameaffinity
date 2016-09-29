@@ -1,0 +1,59 @@
+{# Template utilizada para mostar resultados por plataforma y por género (anteriormente eran una template para cada 
+elemento, pero la mayor parte del código se repetía así que se ha sintetizado en una única template #}
+
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{# Comprobamos si estamos mostrando juegos por plataforma o por genero#}
+{% if plataforma is defined %}
+    {% set elemento = plataforma %}
+{% elseif genero is defined %}
+    {% set elemento = genero %}
+{% endif %}
+
+
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Juegos {{ elemento }}{% endblock %}
+{% block body %}
+    {{ parent() }}
+
+
+
+    <div class="container">
+        <div class="page-header">
+            <h3>{{ elemento.nombre }}</h3>{% if plataforma is defined %}Lanzamiento: {{ elemento.fechaLanzamiento|date('d/m/Y') }}{% endif %}
+        </div>
+
+        {% for juego in elemento.juegos %}
+            {# Juntamos la ruta de los uploads de juego con el nombre de la imagen #}                      
+            {% set portada = "#{juegos_asset_src}" ~ "#{ juego.portada }" %} 
+
+
+            <div class="por-plataforma-genero-wrapper">
+                <p><b>{{ juego.nombre }}</b></p>
+                <a href="{{ path('game_info', {id: juego.id}) }}"><img src="{{ asset("#{ portada }")}}" class="inline img-thumbnail" alt="portada img"/></a>            
+                <div class="cover-bottom-wrapper">
+                    {% if is_granted('ROLE_USER') %}
+                        {% if juego not in app.user.juegosFavoritos %}
+                            <a href="{{ path('game_favorite', {id: juego.id, action: 'add'}) }}"><button type="button" class="btn btn-default btn-add-favourite">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorito
+                                </button>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('game_favorite', {id: juego.id, action: 'remove'}) }}"><button type="button" class="btn btn-danger btn-remove-favourite">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> No Favorito
+                                </button>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                    Puntuacion: <b>{{ juego.puntuacion }}</b>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

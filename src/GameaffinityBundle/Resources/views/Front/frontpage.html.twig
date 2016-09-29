@@ -1,0 +1,59 @@
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}GameAffinity, game reviews and user score database.{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1>{{'GameAffinity, tu web gaming'|trans}}</h1>
+        <div id="frontpage-noticias-container">
+            <h3><u>Últimas noticias</u></h3>
+                    {# TODO Foreach de las ultimas noticias #}
+                    {% for noticia in noticias %}
+                <div class="ultima-noticia-container">
+                    <img src="{{ asset("#{noticias_asset_src}" ~ "#{ noticia.imagen }") }}" class="img-thumbnail" alt="Noticia img" width="120" height="120"/>
+                    <p class="inline">
+                        Título: {{ noticia.titulo }}<br>
+                        Fecha: {{ noticia.fechaPublicacion|date('d/m/Y') }}<br>
+                        Autor: {{ noticia.autor.nombre }}<br>
+                        Texto de la noticia: {{ noticia.texto }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>   
+        <div id="frontpage-lanzamientos-container">
+            <h3><u>Últimos lanzamientos</u></h3>
+                    {%for juego in lanzamientos %}
+                <div class="ultimo-lanzamiento-container inline">
+                    {# Maquetar info ultimos lanzamientos #}
+                    <img src="{{ asset("#{juegos_asset_src}" ~ "#{ juego.portada }") }}" class="img-thumbnail" alt="Portada {{ juego.nombre }}" width="120" height="120"/>
+                    <p>
+                        Nombre: <a href="{{ path('game_info', {'id': juego.id}) }}">{{ juego.nombre }}</a><br>
+                        Lanzamiento: {{ juego.fechaLanzamiento|date('d/m/Y - D') }}<br>
+                        Plataformas:
+                    <ul>
+                        {% for plataforma in juego.plataformas %}
+                            <li><a href="">{{ plataforma.nombre }}</a></li>
+                            {% endfor %}
+                    </ul>
+                    Géneros:
+                    <ul>
+                        {% for genero in juego.generos %}
+                            <li><a href="">{{ genero.nombre }}</a></li>
+                            {% endfor %}
+                    </ul>
+                    Puntuación: {{ juego.puntuacion }}<br>
+                    Desarrolladora: {{ juego.desarrolladora.nombre }}
+
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{# Template para mostrar el formulario de registro de nuevo usuario #}
+{% extends 'GameaffinityBundle:Front:FrontBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Formulario registro nuevo usuario{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container top-margined-2">
+        {{ form_start(formulario) }}
+        {{ form_widget(formulario) }}
+        {{ form_end(formulario) }}
+    </div>
+{% endblock %}

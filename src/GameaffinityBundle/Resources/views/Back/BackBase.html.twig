@@ -1,0 +1,20 @@
+{# Plantilla de la que heredan todas las templates del backend (nivel 2)#}
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/simple-sidebar.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/backend-custom.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+
+{% block body %}
+    {% include 'GameaffinityBundle:Back:backNavbar.html.twig' %}
+{% endblock %}
+{% block title %}{% endblock %}

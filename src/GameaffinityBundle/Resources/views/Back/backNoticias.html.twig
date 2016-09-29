@@ -1,0 +1,42 @@
+{% extends 'GameaffinityBundle:Back:BackBase.html.twig' %}
+
+{% block head %}{{ parent() }}{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+
+{% block title %}Gameaffinity Admin Noticias{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container-fluid">
+        <div class="page-header">
+            <h3>GameAffinity admin noticias</h3>
+            <a href="{{ path('form_noticias') }}"><button type="button" class="btn btn-primary btn-title">Nueva</button></a>
+        </div>    
+        <table class="table">
+            <tr><th>ID</th><th>Autor</th><th>Titulo</th><th>Publicada el</th><th>Imagen</th><th>Texto</th><th></th></tr>
+
+            {# Comprobamos en primer lugar que no venga vacía la variable noticias (en producción no 
+            creo que ocurra nunca, es mas para cuando cargamos la tabla vacía durante dev #}
+            {% if noticias is defined %}
+                {% for noticia in noticias %}
+                    <tr>
+                        <td>{{ noticia.id }}</td>
+                        <td>{{ noticia.autor.nombre }}</td>
+                        <td>{{ noticia.titulo }}</td>
+                        <td>{{ noticia.fechaPublicacion|date('d/m/Y') }}</td>
+                        <td>{{ noticia.imagen }}</td>
+                        <td>{{ noticia.texto }}</td>
+                        <td>
+                            <a href="{{ path('edit_noticias', {'id': noticia.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>                
+</div>
+
+{% endblock %}
