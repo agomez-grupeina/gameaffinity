@@ -1,4 +1,4 @@
-# -- Symfony2 -----------------------------------------
+# -- Symfony -----------------------------------------
 # Cache, session files and logs (Symfony3)
 /var/cache/*
 /var/logs/*
